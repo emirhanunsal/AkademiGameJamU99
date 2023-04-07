@@ -7,18 +7,18 @@ public class CharMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
     public float speed = 10f;
-    public float jumpForce = 10f;
-    public float doubleJumpForce = 20f;
+    public float jumpForce = 20f;
+    public float doubleJumpForce = 10f;
     public bool isGrounded;
     public bool canDoubleJump;
-    public float dashSpeed = 20f;
-    public float dashTime = 0.5f;
+    public float dashSpeed = 15f;
+    public float dashTime = 0.25f;
     public float cooldown = 0.5f;
     private bool isDashing = false;
     private float dashTimeLeft = 0f;
     private float lastDashTime = -5f;
     private float lastJumpTime;
-    public float doubleJumpCooldown = 3f;
+    public float doubleJumpCooldown = 0.15f;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
