@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -22,22 +23,33 @@ public class ShurikenScript : MonoBehaviour
         float rot = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, rot + 90);
         Destroy(gameObject,lifeTime);
-
+        
+        
     }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
         
-            if (other.gameObject.CompareTag("Wall"))
-            {
-                Destroy(other.gameObject);
+        if (other.gameObject.CompareTag("Wall"))
+        {
+            Debug.Log("Wall shuriken hit");
+            Destroy(gameObject,0.01f);
 
-            }
+        }
 
-            if (other.gameObject.CompareTag("Ground"))
-            {
-                Destroy(other.gameObject);
+        if (other.gameObject.CompareTag("Ground"))
+        {
+            Debug.Log("Ground shuriken hit");
+            Destroy(gameObject, 0.01f);
                 
         }
+
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            Debug.Log("Enemy shuriken hit");
+            Destroy(gameObject, 0.01f);
+
+        }
     }
+
 }
