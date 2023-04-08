@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6299455996150758246}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: face
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 6299455996960727962}
   - component: {fileID: 6299455996960727963}
   - component: {fileID: 6299455996960727966}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1
-  playerRb: {fileID: 0}
+  playerRb: {fileID: 3953078267141134868, guid: 4921aea0b806b3f4bab8c628c52f7169, type: 3}
   detectDistance: {x: 7.5, y: 7.5, z: 0}
 --- !u!114 &6299455996960727966
 MonoBehaviour:
