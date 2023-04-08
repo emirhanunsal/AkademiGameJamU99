@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class EnemyScript : MonoBehaviour
 {
+    public Animator animator;
+    public int maxHealth = 100;
+    int currentHealth;
 
     private Rigidbody2D rb;
     public float moveSpeed = 1f;
@@ -16,7 +19,7 @@ public class EnemyScript : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-
+        currentHealth = maxHealth;
     }
 
     void Update()
@@ -75,6 +78,26 @@ public class EnemyScript : MonoBehaviour
         }
 
        
+    }
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+
+        animator.SetTrigger("Hurt");
+
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+    void Die()
+    {
+        Debug.Log("Enemy Died!");
+        animator.SetBool("IsDead", true);
+
+        GetComponent<Collider2D>().enabled = false;
+        this.enabled = false;
+
     }
 }
         
