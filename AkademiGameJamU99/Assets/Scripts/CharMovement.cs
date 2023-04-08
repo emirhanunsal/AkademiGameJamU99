@@ -19,6 +19,9 @@ public class CharMovement : MonoBehaviour
     private float lastDashTime = -5f;
     private float lastJumpTime;
     public float doubleJumpCooldown = 0.15f;
+    private bool facingRight = true;
+
+    [SerializeField] private TrailRenderer tr;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -26,6 +29,17 @@ public class CharMovement : MonoBehaviour
 
     void Update()
     {
+        
+        if (Input.GetAxis("Horizontal") > 0 && !facingRight)
+        {
+            Flip();
+        }
+
+        else if (Input.GetAxis("Horizontal") <0 && facingRight)
+        {
+            Flip();
+        }
+        
         //----------MOVEMENT
         rb.transform.position = new Vector3(transform.position.x + speed * Time.deltaTime * Input.GetAxis("Horizontal"),
             transform.position.y);
@@ -61,6 +75,8 @@ public class CharMovement : MonoBehaviour
             {
                 rb.gravityScale = 0;
             }
+
+            tr.emitting = true;
             rb.velocity = new Vector2(dashSpeed * transform.localScale.x * Input.GetAxis("Horizontal"), 0);
             
         }
@@ -73,15 +89,21 @@ public class CharMovement : MonoBehaviour
                     if (dashTimeLeft <= 0)
                     {
                         isDashing = false;
+                        tr.emitting = false;
                         rb.velocity = new Vector2(0, 0);
                         rb.gravityScale = 5;
                     }
                 }
             
         
+                
     }
-
-    
+        
+    void Flip()
+    {
+        facingRight = !facingRight;
+        transform.Rotate(0f,180f,0f);
+    }
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Ground"))
