@@ -12,8 +12,10 @@ public class ShurikenScript : MonoBehaviour
     private Rigidbody2D rb;
     public float force;
     public float lifeTime = 3f;
+    private PlayerCombat playerCombat;
     void Start()
     {
+        
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         rb = GetComponent<Rigidbody2D>();
         mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
@@ -47,9 +49,12 @@ public class ShurikenScript : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy"))
         {
             Debug.Log("Enemy shuriken hit");
+            
             Destroy(gameObject, 0.01f);
+            
 
         }
     }
 
+    
 }

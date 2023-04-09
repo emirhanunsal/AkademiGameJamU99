@@ -20,6 +20,8 @@ public class CharMovement : MonoBehaviour
     private float lastJumpTime;
     public float doubleJumpCooldown = 0.15f;
     private bool facingRight = true;
+    public Animator animator;
+
 
     [SerializeField] private TrailRenderer tr;
     void Start()
@@ -29,7 +31,13 @@ public class CharMovement : MonoBehaviour
 
     void Update()
     {
-        
+       
+
+        if (isGrounded)
+        {
+            animator.SetBool("isJumping", false);
+
+        }
         if (Input.GetAxis("Horizontal") > 0 && !facingRight)
         {
             Flip();
@@ -39,12 +47,49 @@ public class CharMovement : MonoBehaviour
         {
             Flip();
         }
-        
+
+      
         //----------MOVEMENT
         rb.transform.position = new Vector3(transform.position.x + speed * Time.deltaTime * Input.GetAxis("Horizontal"),
             transform.position.y);
+
+
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+        {
+            animator.SetBool("isRunning",true);
+        }
+        else
+        {
+            animator.SetBool("isRunning", false);
+        }
+
+
+        if (Input.GetKey(KeyCode.Mouse0))
+        {
+            animator.SetBool("isAttacking",true);
+        }
+        else
+        {
+            animator.SetBool("isAttacking",false);
+        }
         
+        if (Input.GetKey(KeyCode.Mouse1))
+        {
+            animator.SetBool("isThrowing",true);
+        }
+        else
+        {
+            animator.SetBool("isThrowing",false);
+        }
         
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            animator.SetBool("isDashing",true);
+        }
+        else
+        {
+            animator.SetBool("isDashing",false);
+        }
         //------JUMP
         if (Input.GetButtonDown("Jump") && isGrounded )
         {
@@ -54,6 +99,10 @@ public class CharMovement : MonoBehaviour
             canDoubleJump = true;
             lastJumpTime = Time.time;
             doubleJumpForce = 20;
+            resetAnimBools();
+
+            animator.SetBool("isJumping", true);
+
         }
         //------------ DOUBLE JUMP
         else if (Input.GetButtonDown("Jump") && canDoubleJump && Time.time > lastJumpTime + doubleJumpCooldown)
@@ -63,6 +112,9 @@ public class CharMovement : MonoBehaviour
             rb.AddForce(new Vector2(rb.velocity.x,doubleJumpForce),ForceMode2D.Impulse);
             isGrounded = false;
             canDoubleJump = false;
+            
+            animator.SetBool("isJumping", true);
+
 
         }
         //-------------DASH
@@ -78,7 +130,10 @@ public class CharMovement : MonoBehaviour
 
             tr.emitting = true;
             rb.velocity = new Vector2(dashSpeed * transform.localScale.x * Input.GetAxis("Horizontal"), 0);
-            
+            resetAnimBools();
+
+            animator.SetBool("isDashing",true);
+
         }
         //------ DASH CONTROL
         if (isDashing)
@@ -112,6 +167,14 @@ public class CharMovement : MonoBehaviour
             canDoubleJump = false;
         }
     }
-
-    
+    private void resetAnimBools()
+    {
+        animator.SetBool("isRunning",false);
+        animator.SetBool("isDashing",false);
+        animator.SetBool("isJumping", false);
+        animator.SetBool("isThrowing", false);
+        animator.SetBool("isAttacking",false);
+    }
 }
+    
+

@@ -8,6 +8,7 @@ TagManager:
   - Wall
   - Enemy
   - Shuriken
+  - EnemyBullet
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - UI
   - EnemyBullet
   - Enemy
-  - 
+  - Player
   - 
   - 
   - 
@@ -45,6 +46,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: top
+    uniqueID: 3348904569
+    locked: 0
   - name: WallAndLayer
     uniqueID: 3598371083
+    locked: 0
+  - name: back
+    uniqueID: 1822565323
     locked: 0

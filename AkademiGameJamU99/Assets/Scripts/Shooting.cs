@@ -42,7 +42,6 @@ public class Shooting : MonoBehaviour
             canThrow = false;
             Instantiate(shuriken, shurikenTransform.position, quaternion.identity);
         }
-        
     }
 
     

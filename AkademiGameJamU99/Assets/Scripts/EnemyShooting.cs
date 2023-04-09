@@ -8,11 +8,16 @@ public class EnemyShooting : MonoBehaviour
     public Transform bulletPos;
     private EnemyScript EnemyScript;
     public float timeBetweenShooting;
+    public Player player;
+    public int bulletDamage;
+    public Animator playerAnim;
+
     
 
     private float timer;
     void Start()
     {
+        
         EnemyScript = GetComponent<EnemyScript>();
     }
 
@@ -20,7 +25,7 @@ public class EnemyShooting : MonoBehaviour
     void Update()
     {
             timer += Time.deltaTime;
-            if (timer > timeBetweenShooting && EnemyScript.GetDetected())
+            if (timer > timeBetweenShooting && EnemyScript.GetDetected() && EnemyScript.GetAlive())
             {
                 
                 timer = 0;
@@ -29,6 +34,34 @@ public class EnemyShooting : MonoBehaviour
             
         
 
+    }
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (bullet.gameObject.CompareTag("Wall"))
+        {
+            Debug.Log("Wall shuriken hit");
+            Destroy(gameObject,0.01f);
+
+        }
+
+        if (bullet.gameObject.CompareTag("Ground"))
+        {
+            Debug.Log("Ground shuriken hit");
+            Destroy(gameObject, 0.01f);
+                
+        }
+
+        if (bullet.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("Enemy bullet hit to player");
+            Destroy(gameObject, 0.01f);
+            player.TakeDamage(bulletDamage);
+        }
+        else
+        {
+            playerAnim.SetBool("isTakingDamage",false);
+
+        }
     }
 
     void Shoot()
